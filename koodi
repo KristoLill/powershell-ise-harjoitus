@@ -1,0 +1,20 @@
+# Läydä kansio 
+$directory = "C:\TestFile"
+
+# Lisää kaikki kansion tiedostot listalle
+$fileArray = @(Get-ChildItem $directory -File)
+
+# Pidä listalla vain teksti tiedostot 
+$fileArray = $fileArray | Where-Object {$_.Extension -eq '.txt'}
+
+# Aseta listan järjestys tiedoston avaamisen ajan perusteella 
+$fileArray = $fileArray | Sort-Object LastWriteTime -Descending
+
+# Löydä uusin tiedosto
+$uusinTiedosto = $fileArray[0]
+
+# Lue uusimman tiedoston teksti 
+$uusinTeksti = Get-Content $uusinTiedosto.FullName
+
+# Printtaa teksti 
+$uusinTeksti
